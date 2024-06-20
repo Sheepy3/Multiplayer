@@ -9,16 +9,17 @@ var direction
 @export var player_id := 1:
 	set(id):
 		player_id = id
-		#%InputSynchronizer.set_multiplayer_authority(player_id)
+		%InputSynchronizer.set_multiplayer_authority(player_id)
 	
 func _on_ready():
-	%InputSynchronizer.set_multiplayer_authority(player_id)
+	#%InputSynchronizer.set_multiplayer_authority(player_id)
 	pass
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
-	self.ready.connect(_on_ready)
+	#self.ready.connect(_on_ready)
+	pass
 
 
 

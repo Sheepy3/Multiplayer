@@ -8,5 +8,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	set_text(str(%InputSynchronizer.get_multiplayer_authority()))
-	pass
+	if %InputSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		set_text(str(%InputSynchronizer.get_multiplayer_authority()))
+		show()
+	else:
+		hide()
