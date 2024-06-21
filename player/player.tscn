@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5u5cu6ty0j3v"]
+[gd_scene load_steps=7 format=3 uid="uid://b5u5cu6ty0j3v"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_kcg08"]
 [ext_resource type="Script" path="res://networking/multiplayer_input.gd" id="2_s6ygc"]
-[ext_resource type="Script" path="res://Label.gd" id="3_34x1j"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ub812"]
 properties/0/path = NodePath(".:position")
@@ -43,15 +42,13 @@ mesh = SubResource("CapsuleMesh_06g7n")
 shape = SubResource("ConvexPolygonShape3D_cch2x")
 
 [node name="Neck" type="Node3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.596137, 0)
-visible = false
 
 [node name="Camera3D" type="Camera3D" parent="Neck"]
-visible = false
 far = 1000.0
 
 [node name="InteractRay" type="RayCast3D" parent="Neck/Camera3D"]
-visible = false
 target_position = Vector3(0, 0, -2.5)
 collision_mask = 4
 
@@ -62,6 +59,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
 offset_right = 40.0
 offset_bottom = 23.0
-script = ExtResource("3_34x1j")

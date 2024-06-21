@@ -14,4 +14,18 @@ func _ready():
 
 func _physics_process(delta):
 	input_direction = Input.get_vector("Left", "Right", "Forward", "Backward")
+	if Input.is_action_just_pressed("Jump"):
+		jump.rpc(multiplayer.get_unique_id())
+	neckrotation.rpc()
+	
+	
+@rpc("call_local")
+func neckrotation():
+	player.neckrot = %Neck.transform.basis
+	#print(player.neckrot)
 
+@rpc("call_local")
+func jump(id):
+	if multiplayer.is_server():
+		player.do_jump = true
+		#print(str(id) + "just jumped!")
