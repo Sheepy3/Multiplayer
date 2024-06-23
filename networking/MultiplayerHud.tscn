@@ -48,10 +48,27 @@ text = "Host
 layout_mode = 2
 text = "Join"
 
-[node name="TextEdit" type="TextEdit" parent="Panel/VBoxContainer"]
+[node name="UsernameInput" type="TextEdit" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-placeholder_text = "InsertUsernamehere
+text = "Player"
+placeholder_text = "Insert Username here
+"
+scroll_fit_content_height = true
+
+[node name="PortInput" type="TextEdit" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "8080"
+placeholder_text = "Insert Port Here
+"
+scroll_fit_content_height = true
+
+[node name="IPInput" type="TextEdit" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "127.0.0.1"
+placeholder_text = "Insert IP here
 "
 scroll_fit_content_height = true
 
