@@ -86,3 +86,13 @@ offset_bottom = 34.0
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="EnemySpawn" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 2.0
+offset_right = 239.0
+offset_bottom = 33.0
+text = "spawn enemy"
+
+[connection signal="pressed" from="Panel/EnemySpawn" to="." method="_on_enemy_spawn_pressed"]

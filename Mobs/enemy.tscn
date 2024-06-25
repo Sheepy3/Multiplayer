@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://sox3x3e8crkp"]
+
+[ext_resource type="Script" path="res://Mobs/enemy.gd" id="1_mo7hr"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_aln5h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8k44x"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6ud5u"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+
+[node name="enemy" type="CharacterBody3D"]
+script = ExtResource("1_mo7hr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_aln5h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_8k44x")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_6ud5u")

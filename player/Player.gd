@@ -1,13 +1,13 @@
 extends CharacterBody3D
 @onready var neck := %Neck
 @onready var camera := $Neck/Camera3D
-@onready var interact_ray = $Neck/Camera3D/InteractRay
-@onready var player = $"."
+@onready var interact_ray := $Neck/Camera3D/InteractRay
+@onready var player := $"."
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-var direction
+var direction:Vector3
 var do_jump:bool 
-var setlabel
+#var setlabel
 @export var player_id := 1:
 	set(id):
 		player_id = id
@@ -15,9 +15,9 @@ var setlabel
 		$Label3D.set_multiplayer_authority(player_id)
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func _process(delta):
+func _process(_delta:float) -> void:
 	if %InputSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		%Label.set_text(str(%InputSynchronizer.get_multiplayer_authority()))
 		%Label.show()
@@ -25,7 +25,7 @@ func _process(delta):
 	else:
 		%Panel.hide()	
 
-func _unhandled_input(event):
+func _unhandled_input(event:InputEvent) -> void:
 	if event is InputEventMouseButton:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event.is_action_pressed("ui_cancel"):
@@ -36,11 +36,11 @@ func _unhandled_input(event):
 			camera.rotate_x(-event.relative.y * 0.01)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
-func _physics_process(delta):
+func _physics_process(delta:float) -> void:
 	if multiplayer.is_server():
 		_apply_movement_from_input(delta)
 		
-func _apply_movement_from_input(delta):
+func _apply_movement_from_input(delta:float) -> void:
 	#print(player_id)
 		# Add the gravity.
 	if not is_on_floor():
@@ -50,8 +50,8 @@ func _apply_movement_from_input(delta):
 	if do_jump and is_on_floor():
 		velocity.y = JUMP_VELOCITY	
 		do_jump = false
-	var input_dir = %InputSynchronizer.input_direction #Input.get_vector("Left", "Right", "Forward", "Backward")
-	var neckrot = %InputSynchronizer.neckrotation
+	var input_dir:Vector2 = %InputSynchronizer.input_direction #Input.get_vector("Left", "Right", "Forward", "Backward")
+	var neckrot:Basis = %InputSynchronizer.neckrotation
 	direction = (neckrot * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if is_on_floor():
 		if direction:
@@ -62,3 +62,11 @@ func _apply_movement_from_input(delta):
 			velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()	
+
+
+func _on_enemy_spawn_pressed() -> void:
+	if multiplayer.get_unique_id() == 1:
+		MultiplayerManager.spawn_enemy()
+		print("hi")
+	else:
+		print(multiplayer.get_unique_id())
